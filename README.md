@@ -2,7 +2,7 @@
 
 Repositório que demonstra a criação de um projeto asp.net core através do CLI e conectando a um banco de dados My SQl utilizando Dapper e .net Core.
 
-Repositório base para o seguinte artigo: [aqui](https://wp.me/p7SQs9-9B).
+Repositório base para o seguinte artigo: [aqui](https://github.com/vitorramosdasilva/ApiMysql).
 
 ## Requisitos
 
