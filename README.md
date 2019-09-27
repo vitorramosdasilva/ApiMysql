@@ -8,7 +8,7 @@ Repositório base para o seguinte artigo: [aqui](https://github.com/vitorramosda
 
 - .Net Core 2.1
 - Visual Studio Code / Visual Studio 2017
--
+- MySQL
 
 # O que você vai encontrar neste projeto
 
