@@ -1,2 +1,2 @@
 # ApiMysql
-ApiMysql Crud Dapper Mysql.Data
+Web Api Rest, Mysql, Crud, Dapper e Provider Mysql.Data
