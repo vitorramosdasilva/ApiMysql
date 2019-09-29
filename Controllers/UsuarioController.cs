@@ -63,9 +63,14 @@ namespace ApiMySql.Controllers
         }
 
         // PUT: api/Usuario/5
+        //[FromForm]
         [HttpPut("{id}")]
+        //
+        //public IActionResult Put([FromRoute] int id, [FromBody] Usuario Usuario)
         public IActionResult Put([FromRoute] int id, [FromBody] Usuario Usuario)
         {
+            ConvertDataMySQL(Usuario);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -105,6 +110,8 @@ namespace ApiMySql.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Usuario Usuario)
         {
+            ConvertDataMySQL(Usuario);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -112,17 +119,21 @@ namespace ApiMySql.Controllers
 
             try
             {
-                UsuarioRepository.Add(Usuario);
-                
+                Usuario.Id = UsuarioRepository.Add(Usuario);
+
+
             }
             catch (Exception ex)
             {
                 string.Format("Erro Post/Adicionar cliente Nº {0}, erro Exception{1}", Usuario.Id, ex);
+                return NotFound();
             }
-                        
+
 
             return CreatedAtAction("Get", new { id = Usuario.Id }, Usuario);
         }
+
+       
 
         // DELETE: api/Usuario/5
         [HttpDelete("{id}")]
@@ -155,7 +166,13 @@ namespace ApiMySql.Controllers
             return Ok(usuario);
         }
 
-       
+
+        private static void ConvertDataMySQL(Usuario Usuario)
+        {
+            Usuario.DataNascimento = DateTime.Parse(Usuario.DataNascimento.ToString()).ToString("yyyy-MM-dd");
+        }
+
+
 
     }
 }
