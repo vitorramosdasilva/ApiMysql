@@ -34,17 +34,36 @@ namespace ApiMySql.Repository
             }
         }
 
-
-
-        public void Add(Usuario item)
+        public int Add(Usuario item)
         {
+            string sql = @"INSERT INTO Usuario(Email, Senha, NomeCompleto, DataNascimento, UsuarioContribuidor) VALUES(@Email, @Senha, @NomeCompleto, @DataNascimento, @UsuarioContribuidor);  select LAST_INSERT_ID(); ";
+
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                item.Id = connection.ExecuteScalar<int>(sql, new
+                {
+                    email = item.Email,
+                    senha = item.Senha,
+                    usuarioContribuidor = item.UsuarioContribuidor,
+                    nomeCompleto = item.NomeCompleto,
+                    dataNascimento = item.DataNascimento                   
+                   
+                });
+                return item.Id;
+            }
+        }
+
+        /*public int Add(Usuario item)
+        {
+             
             using (MySqlConnection connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
-                connection.Execute("INSERT INTO Usuario (Email, Senha, NomeCompleto, DataNascimento, UsuarioContribuidor) VALUES(@Email, @Senha, @NomeCompleto, @DataNascimento, @UsuarioContribuidor)", item);
+                return connection.Execute("INSERT INTO Usuario (Email, Senha, NomeCompleto, DataNascimento, UsuarioContribuidor) VALUES(@Email, @Senha, @NomeCompleto, @DataNascimento, @UsuarioContribuidor)", item);
+                result.Single();
             }
 
-        }
+        }*/
 
         public bool ExistsID(int id)
         {
